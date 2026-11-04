@@ -12,7 +12,8 @@ var PR = (function () {
     egypt:   {name: 'Egyptian General Authority', f: 19.5, i: 17.5, im: 0},
     isna:    {name: 'ISNA (North America)', f: 15, i: 15, im: 0},
     makkah:  {name: 'Umm al-Qura (Makkah)', f: 18.5, i: 0, im: 90},
-    jakim:   {name: 'Singapore / Malaysia (JAKIM)', f: 20, i: 18, im: 0}
+    jakim:   {name: 'Singapore / Malaysia (JAKIM)', f: 20, i: 18, im: 0},
+    mtp:     {name: 'Muslim Thai Post style (offline)', f: 19, i: 18, im: 0}
   };
   var NAMES = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   var PRAYERS = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
@@ -39,8 +40,8 @@ var PR = (function () {
 
   // prayer times for local date y-m-d at a city. Returns {Fajr,Sunrise,Dhuhr,Asr,Maghrib,Isha} as Date (or null when the sun never gets there)
   function compute(y, m, d, city, st) {
-    if (window.Online && (city.id === 1 || city.id === 2)) {   // live masjid times (Aladhan method 18) when downloaded
-      var live = Online.get(city.id, y, m, d);
+    if (window.Online) {   // times copied from prayertimes.muslimthaipost.com when they cover this day
+      var live = Online.get(city, y, m, d);
       if (live) { return live; }
     }
     var meth = METHODS[st.method] || METHODS.mwl;

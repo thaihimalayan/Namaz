@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>Namaz</title>
-<link rel="stylesheet" href="app.css?v=15">
+<link rel="stylesheet" href="app.css?v=16">
 </head><body>
 
 <header class="top"><b id="topTitle">Prayer Times</b><span id="topDate" class="topdate"></span></header>
@@ -31,7 +31,7 @@
       <div class="card form">
         <label>Asr <select id="tAsr"><option value="1">Shafi / Maliki / Hanbali</option><option value="2">Hanafi</option></select></label>
       </div>
-      <p class="note" id="srcNote">Bangkok and Chanthaburi: masjid source (Aladhan, method 18). Current location: calculated on your phone.</p>
+      <p class="note" id="srcNote">Times from prayertimes.muslimthaipost.com. Days it does not cover are calculated on your phone.</p>
     </div>
     <div class="sub" id="p-times-month">
       <div class="mnav"><button class="btn" id="tmPrev">&lsaquo;</button><b id="tmTitle"></b><button class="btn" id="tmNext">&rsaquo;</button></div>
@@ -97,8 +97,8 @@
         <h3>Adjust times (minutes, + later / - earlier)</h3>
         <div class="adjgrid" id="adjGrid"></div>
         <button class="btn pri" id="gSave">Save</button>
-        <button class="btn pri" id="gPreset" style="background:var(--card);color:var(--ink);border-color:var(--line)">Reset to masjid settings</button>
-        <p class="note">Bangkok and Chanthaburi times come live from the masjid source (Aladhan, method 18) and update every day. These settings are the offline backup and also used for Current location.</p>
+        <button class="btn pri" id="gPreset" style="background:var(--card);color:var(--ink);border-color:var(--line)">Reset offline backup settings</button>
+        <p class="note">Times are copied every day from prayertimes.muslimthaipost.com (Current location uses the nearest province). These settings are only the backup for days the site does not cover.</p>
       </div>
     </div>
     <div class="sub" id="p-more-backup">
@@ -128,13 +128,13 @@
 </nav>
 <div id="toast" class="toast"></div>
 
-<script src="store.js?v=15"></script>
-<script src="prayer.js?v=15"></script>
-<script src="online.js?v=15"></script>
-<script src="times.js?v=15"></script>
-<script src="tracker.js?v=15"></script>
-<script src="qibla.js?v=15"></script>
-<script src="guide.js?v=15"></script>
-<script src="more.js?v=15"></script>
-<script src="app.js?v=15"></script>
+<script src="store.js?v=16"></script>
+<script src="prayer.js?v=16"></script>
+<script src="online.js?v=16"></script>
+<script src="times.js?v=16"></script>
+<script src="tracker.js?v=16"></script>
+<script src="qibla.js?v=16"></script>
+<script src="guide.js?v=16"></script>
+<script src="more.js?v=16"></script>
+<script src="app.js?v=16"></script>
 </body></html>

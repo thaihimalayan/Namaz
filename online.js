@@ -1,67 +1,57 @@
-/* Namaz - live times for Bangkok and Chanthaburi from Aladhan (method 18), the same source as Masjid Darul Aman. Kept on the phone for offline use. */
+/* Namaz - times copied from prayertimes.muslimthaipost.com (a GitHub job saves them into mtp.json every day).
+   Bangkok and Chanthaburi use their own province; Current location uses the nearest province, like the website. */
 var Online = (function () {
-  var OKEY = 'namaz.online.v1', M = 18;
-  var PLACES = {1: {lat: 13.7525, lng: 100.5283}, 2: {lat: 12.6114, lng: 102.1039}};   // Bangkok (masjid's point), Chanthaburi
-  var data = {}, busy = {};
-  try { data = JSON.parse(localStorage.getItem(OKEY) || '{}') || {}; } catch (e) { data = {}; }
+  var OKEY = 'namaz.mtp.v1', data = null;
+  var PID = {1: '2', 2: '7'};   // site province numbers: Bangkok = 2, Chanthaburi = 7
+  try { data = JSON.parse(localStorage.getItem(OKEY) || 'null'); } catch (e) { data = null; }
 
-  function saveData() { try { localStorage.setItem(OKEY, JSON.stringify(data)); } catch (e) {} }
-  function mk(y, m) { return y + '-' + PR.p2(m); }
-  function toDate(y, mo, d, str) {   // "05:00 (+07)" -> Date (Thailand is UTC+7 all year)
-    var mm = /(\d+):(\d+)/.exec(str || '');
-    return mm ? new Date(Date.UTC(y, mo - 1, d, +mm[1] - 7, +mm[2])) : null;
+  function hav(la1, lo1, la2, lo2) {
+    var r = Math.PI / 180, a = Math.sin((la2 - la1) * r / 2), b = Math.sin((lo2 - lo1) * r / 2);
+    var h = a * a + Math.cos(la1 * r) * Math.cos(la2 * r) * b * b;
+    return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
   }
-  // times for one day, or null when not downloaded yet
-  function get(cityId, y, m, d) {
-    var cm = data[cityId] && data[cityId][mk(y, m)];
-    var day = cm && cm[d];
-    if (!day) { return null; }
-    var out = {};
-    PR.NAMES.forEach(function (n) { out[n] = toDate(y, m, d, day[n]); });
+  function provinceFor(city) {
+    if (PID[city.id]) { return PID[city.id]; }
+    if (!data || !data.prov) { return null; }
+    var best = null, min = 1e9;
+    for (var k in data.prov) {
+      var p = data.prov[k], d = hav(city.lat, city.lng, p.lat, p.lng);
+      if (d < min) { min = d; best = k; }
+    }
+    return min < 300 ? best : null;   // outside Thailand: use the phone's own calculation
+  }
+  // times for one day as Dates, or null when the site data does not cover that day
+  function get(city, y, m, d) {
+    if (!data || !data.d) { return null; }
+    var pid = provinceFor(city), row = pid && data.d[pid] && data.d[pid][PR.key(y, m, d)];
+    if (!row) { return null; }
+    var p = row.split(' '), out = {};
+    PR.NAMES.forEach(function (n, i) {
+      var mm = /(\d+):(\d+)/.exec(p[i] || '');
+      out[n] = mm ? new Date(Date.UTC(y, m - 1, d, +mm[1] - 7, +mm[2])) : null;   // Thailand = UTC+7
+    });
     return out;
   }
-  function has(cityId, y, m) { return !!(data[cityId] && data[cityId][mk(y, m)]); }
-
-  function load(cityId, y, m, done) {
-    var p = PLACES[cityId], k = cityId + mk(y, m);
-    if (!p || busy[k] || typeof fetch !== 'function') { if (done) { done(false); } return; }
-    busy[k] = 1;
-    fetch('https://api.aladhan.com/v1/calendar/' + y + '/' + m + '?latitude=' + p.lat + '&longitude=' + p.lng + '&method=' + M)
-      .then(function (r) { if (!r.ok) { throw 0; } return r.json(); })
-      .then(function (j) {
-        var cm = {};
-        j.data.forEach(function (e, i) {
-          var t = e.timings, o = {};
-          PR.NAMES.forEach(function (n) { o[n] = t[n]; });
-          cm[i + 1] = o;
-        });
-        if (!data[cityId]) { data[cityId] = {}; }
-        data[cityId][mk(y, m)] = cm;
-        saveData();
-        busy[k] = 0;
-        if (done) { done(true); }
-      })
-      .catch(function () { busy[k] = 0; if (done) { done(false); } });
+  function has(city) {
+    var a = PR.ymd(new Date(), 'Asia/Bangkok');
+    return !!get(city, a[0], a[1], a[2]);
   }
-
-  // make sure this month and next month are saved for both cities
-  function sync() {
-    var a = PR.ymd(new Date(), 'Asia/Bangkok'), y = a[0], m = a[1];
-    var ny = m === 12 ? y + 1 : y, nm = m === 12 ? 1 : m + 1, any = false;
-    [1, 2].forEach(function (id) {
-      [[y, m], [ny, nm]].forEach(function (ym) {
-        if (!has(id, ym[0], ym[1]) || (ym[0] === y && ym[1] === m && stale())) {
-          load(id, ym[0], ym[1], function (ok) { if (ok && window.settingsChanged) { settingsChanged(); } });
-        }
-      });
-    });
-    function stale() { var t = +localStorage.getItem(OKEY + '.t') || 0; return Date.now() - t > 86400000; }
-    try { if (!busy.stamp) { localStorage.setItem(OKEY + '.t', String(Date.now())); } } catch (e) {}
+  function load() {
+    if (typeof fetch !== 'function') { return; }
+    fetch('mtp.json?t=' + Date.now(), {cache: 'no-store'})
+      .then(function (r) { if (!r.ok) { throw 0; } return r.text(); })
+      .then(function (t) {
+        var j = JSON.parse(t);
+        if (!j || !j.d) { throw 0; }
+        data = j;
+        try { localStorage.setItem(OKEY, t); } catch (e) {}
+        if (window.settingsChanged) { settingsChanged(); }
+      })
+      .catch(function () {});
   }
   function init() {
-    sync();
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) { sync(); } });
+    load();
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) { load(); } });
   }
-  function usable(cityId, y, m) { return has(cityId, y, m); }
-  return {init: init, get: get, usable: usable, sync: sync};
+  return {init: init, get: get, has: has, updated: function () { return data && data.updated || ''; }};
 })();

@@ -1,5 +1,5 @@
 /* Namaz - data kept on the phone (localStorage), shared helpers */
-var APP_VER = 15;   // bump together with VERSION in sw.js when you change files
+var APP_VER = 16;   // bump together with VERSION in sw.js when you change files
 
 var DEFAULT_CITIES = [
   {id: 1, name: 'Bangkok', lat: 13.7563, lng: 100.5018, tz: 'Asia/Bangkok'},
@@ -20,13 +20,13 @@ function loadState() {
   } catch (e) { S = null; }
   if (!S || !S.settings || !S.cities || !S.cities.length || !S.log) { S = freshState(); }
   fixCities();
-  // one-time: offline fallback = masjid settings (18/18, Shafi Asr, no adjustments); live times come from online.js
-  if (S.settings.preset !== 'mj1') {
+  // one-time: offline fallback tuned to Muslim Thai Post (19/18, Shafi Asr); site times come from online.js
+  if (S.settings.preset !== 'mt1') {
     S.cities.forEach(function (c) { if (/^Bangkok/i.test(c.name)) { S.settings.city_id = c.id; } });
-    S.settings.method = 'karachi'; S.settings.asr = 1;
-    S.settings.adj = {Fajr: 0, Sunrise: 0, Dhuhr: 0, Asr: 0, Maghrib: 0, Isha: 0};
+    S.settings.method = 'mtp'; S.settings.asr = 1;
+    S.settings.adj = {Fajr: 1, Sunrise: 1, Dhuhr: 4, Asr: 2, Maghrib: 2, Isha: 2};
     S.settings.dm = 0;
-    S.settings.preset = 'mj1';
+    S.settings.preset = 'mt1';
     save();
   }
 }
