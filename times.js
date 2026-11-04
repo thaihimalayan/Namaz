@@ -27,7 +27,7 @@ var Times = (function () {
     var greg = new Intl.DateTimeFormat('en-GB', {timeZone: c.tz, weekday: 'short', day: 'numeric', month: 'short'}).format(now);
     var hij = '';
     try { hij = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {timeZone: c.tz, day: 'numeric', month: 'short', year: 'numeric'}).format(now); } catch (e) {}
-    $('topDate').innerHTML = esc(greg) + (hij ? '<br>' + esc(hij) : '');
+    $('topDate').innerHTML = esc(greg) + (hij ? ' &nbsp;|&nbsp; ' + esc(hij) : '');
     var t = PR.timesFor(now, c, S.settings);
     var tomorrow = PR.timesFor(new Date(now.getTime() + 86400000), c, S.settings);
     var friday = new Intl.DateTimeFormat('en-US', {timeZone: c.tz, weekday: 'long'}).format(now) === 'Friday';
@@ -39,6 +39,18 @@ var Times = (function () {
     });
     $('timesTbl').innerHTML = h;
     tick();
+    fit();
+  }
+
+  /* make the six timings as roomy as possible while the whole page (including the 3-line note) stays above the bottom bar */
+  function fit() {
+    var v = $('v-times'), note = $('srcNote'), bar = $('bar');
+    if (!v || !v.classList.contains('on') || !note || !bar) { return; }
+    var gap = 10, pad;
+    for (pad = 17; pad >= 3; pad--) {
+      v.style.setProperty('--rp', pad + 'px');
+      if (note.getBoundingClientRect().bottom <= bar.getBoundingClientRect().top - gap) { break; }
+    }
   }
 
   function tick() {
@@ -79,5 +91,8 @@ var Times = (function () {
     $('tmTbl').innerHTML = h;
   }
 
-  return {init: init, refresh: refresh};
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', function () { setTimeout(fit, 300); });
+  window.addEventListener('load', function () { setTimeout(fit, 50); });
+  return {init: init, refresh: refresh, fit: fit};
 })();

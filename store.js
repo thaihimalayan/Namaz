@@ -1,5 +1,5 @@
 /* Namaz - data kept on the phone (localStorage), shared helpers */
-var APP_VER = 24;   // bump together with VERSION in sw.js when you change files
+var APP_VER = 25;   // bump together with VERSION in sw.js when you change files
 
 var DEFAULT_CITIES = [
   {id: 1, name: 'Bangkok', lat: 13.7563, lng: 100.5018, tz: 'Asia/Bangkok'},
@@ -138,5 +138,3 @@ function tapConfirm(btn, label, action) {
     if (btn.getAttribute('data-armed')) { btn.removeAttribute('data-armed'); btn.classList.remove('armed'); btn.textContent = btn.getAttribute('data-label'); }
   }, 4000);
 }
-
-

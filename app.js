@@ -10,6 +10,7 @@ function showView(v) {
   window.scrollTo(0, 0);
   try { sessionStorage.setItem('namaz.view', v); } catch (e) {}
   if (v === 'tracker') { Tracker.refresh(); }
+  if (v === 'times' && window.Times) { Times.fit(); }
 }
 
 function showSub(view, p) {
