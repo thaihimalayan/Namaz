@@ -1,4 +1,4 @@
-/* Namaz - More: settings, backup, update */
+/* Namaz - More: settings and update */
 var More = (function () {
 
   function init() {
@@ -27,8 +27,6 @@ var More = (function () {
       S.settings.adj = {Fajr: 1, Sunrise: 1, Dhuhr: 4, Asr: 2, Maghrib: 2, Isha: 2}; S.settings.dm = 0;
       settingsChanged(); toast('Reset offline backup settings');
     };
-    $('bkExport').onclick = exportBackup;
-    $('bkRestore').onclick = restoreBackup;
     $('updBtn').onclick = checkUpdate;
     refresh();
   }
@@ -49,55 +47,20 @@ var More = (function () {
   }
 
   /* ----- backup ----- */
-  function exportBackup() {
-    var json = JSON.stringify({app: 'namaz', made: new Date().toISOString(), state: S}, null, 1);
-    $('bkText').value = json;
-    try { navigator.clipboard.writeText(json).then(function () { toast('Backup text copied. Paste it into Notes to keep it.'); }, function () {}); } catch (e) {}
-    var name = 'namaz-backup-' + new Date().toISOString().slice(0, 10) + '.json';
-    try {
-      var file = new File([json], name, {type: 'application/json'});
-      if (navigator.canShare && navigator.canShare({files: [file]})) {
-        navigator.share({files: [file], title: 'Namaz backup'}).catch(function () {});
-        return;
-      }
-    } catch (e) {}
-    try {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([json], {type: 'application/json'}));
-      a.download = name;
-      document.body.appendChild(a); a.click(); a.remove();
-    } catch (e) {}
-  }
-  function applyBackup(text) {
-    try {
-      var d = JSON.parse(text), st = d.state;
-      if (!st || !st.settings || !st.cities || !st.cities.length || !st.log) { throw 0; }
-      S = st; save(); applyDark(); location.reload();
-    } catch (e) { toast('This is not a Namaz backup.'); }
-  }
-  function restoreBackup() {
-    var f = $('bkFile').files[0], txt = $('bkText').value.trim();
-    if (!f && !txt) { toast('Choose a backup file or paste the backup text first.'); return; }
-    tapConfirm($('bkRestore'), 'Tap again: replaces everything', function () {
-      if (txt) { applyBackup(txt); return; }
-      var rd = new FileReader();
-      rd.onload = function () { applyBackup(rd.result); };
-      rd.readAsText(f);
-    });
-  }
-
   /* ----- update ----- */
   function checkUpdate() {
-    toast('Checking...');
+    var msg = $('updMsg');
+    msg.textContent = 'Checking...';
     fetch('store.js?t=' + Date.now(), {cache: 'no-store'}).then(function (r) { return r.text(); }).then(function (t) {
       var m = /var APP_VER = (\d+)/.exec(t), v = m ? +m[1] : 0;
       if (v > APP_VER) {
-        toast('Updating to version ' + v + '...');
-        setTimeout(function () { location.replace(location.pathname + '?u=' + Date.now()); }, 700);
+        msg.textContent = 'Updating to version ' + v + '...';
+        try { if (navigator.serviceWorker) { navigator.serviceWorker.getRegistration().then(function (r) { if (r) { r.update(); } }); } } catch (e) {}
+        setTimeout(function () { location.replace(location.pathname + '?u=' + Date.now()); }, 800);
       } else {
-        toast('Up to date. The server has version ' + v + ', this phone has version ' + APP_VER + '.');
+        msg.textContent = 'You are up to date (version ' + APP_VER + ').';
       }
-    }).catch(function () { toast('Cannot reach the PC. Check Wi-Fi.'); });
+    }).catch(function () { msg.textContent = 'Cannot reach the server. Check your internet.'; });
   }
   return {init: init, refresh: refresh};
 })();

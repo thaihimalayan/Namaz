@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>Namaz</title>
-<link rel="stylesheet" href="app.css?v=21">
+<link rel="stylesheet" href="app.css?v=22">
 </head><body>
 
 <header class="top"><b id="topTitle">Prayer Times</b><span id="topDate" class="topdate"></span></header>
@@ -76,17 +76,18 @@
 
   <!-- GUIDE -->
   <section class="view" id="v-guide">
-    <div class="seg" data-view="guide"><button data-p="steps" class="on">Pray</button><button data-p="wudu">Wudu</button><button data-p="rakats">Rakats</button><button data-p="tasbih">Dhikr</button><button data-p="dua">Dua</button></div>
+    <div class="seg" data-view="guide"><button data-p="steps" class="on">Pray</button><button data-p="wudu">Wudu</button><button data-p="rakats">Rakats</button><button data-p="tasbih">Dhikr</button><button data-p="dua">Dua</button><button data-p="surah">Surah</button></div>
     <div class="sub on" id="p-guide-steps"></div>
     <div class="sub" id="p-guide-wudu"></div>
     <div class="sub" id="p-guide-rakats"></div>
     <div class="sub" id="p-guide-tasbih"></div>
     <div class="sub" id="p-guide-dua"></div>
+    <div class="sub" id="p-guide-surah"></div>
   </section>
 
   <!-- MORE -->
   <section class="view" id="v-more">
-    <div class="seg" data-view="more"><button data-p="general" class="on">General</button><button data-p="backup">Backup</button></div>
+    <div class="seg" data-view="more"><button data-p="general" class="on">General</button><button data-p="backup">Update</button></div>
     <div class="sub on" id="p-more-general">
       <div class="card form">
         <div class="ctabs"></div>
@@ -104,18 +105,10 @@
       </div>
     </div>
     <div class="sub" id="p-more-backup">
-      <div class="card form">
-        <h3>Back up</h3>
-        <p class="note">Saves your settings, cities and prayer history. The text is copied so you can paste it into Notes, or it is offered as a file.</p>
-        <button class="btn pri" id="bkExport">Save backup</button>
-        <textarea id="bkText" placeholder="Backup text appears here. To restore, paste it here." spellcheck="false"></textarea>
-        <h3 style="margin-top:22px">Restore</h3>
-        <p class="note">Paste the backup text above, or choose a backup file. This replaces everything in the app.</p>
-        <input type="file" id="bkFile" accept=".json,application/json">
-        <button class="btn pri" id="bkRestore">Restore from file</button>
-        <h3 style="margin-top:22px">Update</h3>
-        <p class="note" id="verLbl"></p>
-        <button class="btn" id="updBtn">Check for update</button>
+      <div class="card center updcard">
+        <div class="updver" id="verLbl"></div>
+        <button class="updbtn" id="updBtn">Check for update</button>
+        <p class="note" id="updMsg">Tap the button to get the newest version of the app.</p>
       </div>
     </div>
   </section>
@@ -130,13 +123,14 @@
 </nav>
 <div id="toast" class="toast"></div>
 
-<script src="store.js?v=21"></script>
-<script src="prayer.js?v=21"></script>
-<script src="online.js?v=21"></script>
-<script src="times.js?v=21"></script>
-<script src="tracker.js?v=21"></script>
-<script src="qibla.js?v=21"></script>
-<script src="guide.js?v=21"></script>
-<script src="more.js?v=21"></script>
-<script src="app.js?v=21"></script>
+<script src="store.js?v=22"></script>
+<script src="prayer.js?v=22"></script>
+<script src="online.js?v=22"></script>
+<script src="times.js?v=22"></script>
+<script src="tracker.js?v=22"></script>
+<script src="qibla.js?v=22"></script>
+<script src="guide.js?v=22"></script>
+<script src="surah.js?v=22"></script>
+<script src="more.js?v=22"></script>
+<script src="app.js?v=22"></script>
 </body></html>

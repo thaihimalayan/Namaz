@@ -139,7 +139,7 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 #v-times .note{margin:4px 2px;font-size:11px}
 
 /* guide: 4 tabs + tasbih */
-.seg[data-view="guide"] button{font-size:12px;padding:9px 1px}
+
 .tsb{padding:16px 14px 18px}
 .tsbsel{display:block;text-align:left;font-size:12px;color:var(--muted)}
 .tsbname{font-size:22px;font-weight:700;color:var(--gold);margin:12px 0 6px}
@@ -164,3 +164,45 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 .duaq:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-tint)}
 .dua .trl{font-style:italic;font-size:14px;color:var(--gold);margin:2px 0 4px;line-height:1.4}
 .dua.today .trl{color:var(--gold-soft)}
+
+/* guide tabs: 3 x 3 grid */
+.seg[data-view="guide"]{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.seg[data-view="guide"] button{font-size:14px;padding:10px 2px}
+
+/* surah */
+.sr{padding:0;overflow:hidden}
+.srhead{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:var(--ink);padding:14px;text-align:left;cursor:pointer;font:inherit}
+.srnum{flex:0 0 34px;height:34px;border-radius:50%;background:var(--gold);color:#222;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px}
+.srnames{flex:1}
+.srnames b{display:block;font-size:16px}
+.srnames small{color:var(--muted);font-size:12px}
+.srar{font-size:24px;color:var(--gold);font-family:"Geeza Pro","Traditional Arabic","Amiri","Noto Naskh Arabic",serif}
+.srbody{display:none;padding:0 14px 14px}
+.sr.open .srhead{border-bottom:1px solid var(--line)}
+.srbismi{text-align:center;margin:12px 0 4px}
+.srbismi .arb,.ayah .arb{direction:rtl;font-size:26px;line-height:2;font-family:"Geeza Pro","Traditional Arabic","Amiri","Noto Naskh Arabic",serif}
+.srbismi .arb{text-align:center;font-size:24px}
+.ayah{padding:10px 0;border-bottom:1px solid var(--line)}
+.ayah:last-child{border:0}
+.ayah .arb{text-align:right}
+.anum{display:inline-block;min-width:26px;height:26px;line-height:24px;text-align:center;border:1.5px solid var(--gold);border-radius:50%;font-size:12px;color:var(--gold);font-family:var(--font);vertical-align:middle}
+.ayah .trl,.srbismi .trl{font-style:italic;color:var(--gold);font-size:14px;margin:2px 0}
+.srbismi .trl{text-align:center}
+.ayah .tr,.srbismi .tr{font-size:15px;color:var(--ink);margin:2px 0}
+.srbismi .tr{text-align:center;font-size:13px;color:var(--muted)}
+.player{background:var(--head);border:1px solid var(--line);border-radius:14px;padding:12px;margin:12px 0 4px}
+.prow{display:flex;align-items:center;gap:12px}
+.pbtn{flex:0 0 52px;width:52px;height:52px;border-radius:50%;border:0;background:var(--navy);color:var(--gold-soft);font-size:20px;cursor:pointer;touch-action:manipulation}
+.pbar{flex:1}
+.pbar input,.pspeed input{width:100%;margin:0;padding:0;accent-color:var(--gold);background:none;border:0;display:block}
+.ptime{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pspeed{margin-top:10px}
+.pspeed label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:2px}
+.pspeed b{color:var(--ink)}
+
+/* update */
+.updcard{padding:28px 16px}
+.updver{font-size:15px;color:var(--muted);margin-bottom:16px}
+.updbtn{display:block;width:100%;padding:26px 10px;border:0;border-radius:18px;background:var(--navy);color:var(--gold-soft);font:700 22px var(--font);cursor:pointer;box-shadow:var(--shadow)}
+.updbtn:active{transform:scale(.98)}
+.sr{scroll-margin-top:150px}

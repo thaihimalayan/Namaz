@@ -24,7 +24,7 @@ function showSub(view, p) {
   loadState();
   applyDark();
   try { Online.init(); } catch (e) {}
-  [Times, Tracker, Qibla, Guide, More].forEach(function (m) {
+  [Times, Tracker, Qibla, Guide, Surah, More].forEach(function (m) {
     try { m.init(); } catch (e) { toast('Error: ' + e.message); }
   });
 
@@ -37,6 +37,15 @@ function showSub(view, p) {
       for (var k = 0; k < bs.length; k++) { bs[k].onclick = function () { showSub(seg.getAttribute('data-view'), this.getAttribute('data-p')); }; }
     })(segs[s]);
   }
+
+  function fitBar() {   // keep the last line of every page above the bottom bar
+    var h = $('bar').offsetHeight || 96;
+    document.body.style.paddingBottom = (h + 36) + 'px';
+  }
+  fitBar();
+  window.addEventListener('resize', fitBar);
+  window.addEventListener('orientationchange', fitBar);
+  window.addEventListener('load', fitBar);
 
   var v = 'times';   // the app always opens on Prayer Times
   showView(v);
