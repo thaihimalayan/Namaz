@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>Namaz</title>
-<link rel="stylesheet" href="app.css?v=18">
+<link rel="stylesheet" href="app.css?v=20">
 </head><body>
 
 <header class="top"><b id="topTitle">Prayer Times</b><span id="topDate" class="topdate"></span></header>
@@ -31,7 +31,7 @@
       <div class="card form">
         <label>Asr <select id="tAsr"><option value="1">Shafi / Maliki / Hanbali</option><option value="2">Hanafi</option></select></label>
       </div>
-      <p class="note" id="srcNote">Times from prayertimes.muslimthaipost.com. Days it does not cover are calculated on your phone.</p>
+      <p class="note" id="srcNote">Timings are from prayertimes.muslimthaipost.com. Days not covered by the source are calculated automatically. They may vary +/- 2-3 minutes depending on your location.</p>
     </div>
     <div class="sub" id="p-times-month">
       <div class="mnav"><button class="btn" id="tmPrev">&lsaquo;</button><b id="tmTitle"></b><button class="btn" id="tmNext">&rsaquo;</button></div>
@@ -76,11 +76,12 @@
 
   <!-- GUIDE -->
   <section class="view" id="v-guide">
-    <div class="seg" data-view="guide"><button data-p="steps" class="on">How to pray</button><button data-p="wudu">Wudu</button><button data-p="rakats">Rakats</button><button data-p="tasbih">Tasbih</button></div>
+    <div class="seg" data-view="guide"><button data-p="steps" class="on">Pray</button><button data-p="wudu">Wudu</button><button data-p="rakats">Rakats</button><button data-p="tasbih">Dhikr</button><button data-p="dua">Dua</button></div>
     <div class="sub on" id="p-guide-steps"></div>
     <div class="sub" id="p-guide-wudu"></div>
     <div class="sub" id="p-guide-rakats"></div>
     <div class="sub" id="p-guide-tasbih"></div>
+    <div class="sub" id="p-guide-dua"></div>
   </section>
 
   <!-- MORE -->
@@ -129,13 +130,13 @@
 </nav>
 <div id="toast" class="toast"></div>
 
-<script src="store.js?v=18"></script>
-<script src="prayer.js?v=18"></script>
-<script src="online.js?v=18"></script>
-<script src="times.js?v=18"></script>
-<script src="tracker.js?v=18"></script>
-<script src="qibla.js?v=18"></script>
-<script src="guide.js?v=18"></script>
-<script src="more.js?v=18"></script>
-<script src="app.js?v=18"></script>
+<script src="store.js?v=20"></script>
+<script src="prayer.js?v=20"></script>
+<script src="online.js?v=20"></script>
+<script src="times.js?v=20"></script>
+<script src="tracker.js?v=20"></script>
+<script src="qibla.js?v=20"></script>
+<script src="guide.js?v=20"></script>
+<script src="more.js?v=20"></script>
+<script src="app.js?v=20"></script>
 </body></html>

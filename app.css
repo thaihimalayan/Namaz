@@ -139,7 +139,7 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 #v-times .note{margin:4px 2px;font-size:11px}
 
 /* guide: 4 tabs + tasbih */
-.seg[data-view="guide"] button{font-size:13px;padding:9px 2px}
+.seg[data-view="guide"] button{font-size:12px;padding:9px 1px}
 .tsb{padding:16px 14px 18px}
 .tsbsel{display:block;text-align:left;font-size:12px;color:var(--muted)}
 .tsbname{font-size:22px;font-weight:700;color:var(--gold);margin:12px 0 6px}
@@ -148,3 +148,15 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 .tsbbtn:active{transform:scale(.97)}
 .tsbbtn span{font-size:68px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold-soft)}
 .tsbbtn small{color:#cfe3de;font-size:14px;margin-top:6px}
+
+/* dua */
+.dua{margin-bottom:12px}
+.dua .daily{color:var(--gold);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.dua .arb{direction:rtl;text-align:right;font-size:26px;line-height:1.9;color:var(--ink);font-family:"Geeza Pro","Traditional Arabic","Amiri","Noto Naskh Arabic",serif}
+.dua .tr{font-size:15px;margin:8px 0 6px;color:var(--ink)}
+.dua .src{font-size:12px;color:var(--muted)}
+.dua .ttl{font-weight:700;color:var(--h3);margin-bottom:2px}
+.dua.today{background:linear-gradient(160deg,var(--navy2),var(--navy));border:0;color:#fff}
+.dua.today .arb,.dua.today .tr{color:#fff}
+.dua.today .src{color:#cfe3de}
+.dua.today .ttl{color:var(--gold-soft)}
