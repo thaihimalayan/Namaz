@@ -137,3 +137,14 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 #v-times .card.form label{margin:0}
 #v-times .card.form select{padding:8px 10px}
 #v-times .note{margin:4px 2px;font-size:11px}
+
+/* guide: 4 tabs + tasbih */
+.seg[data-view="guide"] button{font-size:13px;padding:9px 2px}
+.tsb{padding:16px 14px 18px}
+.tsbsel{display:block;text-align:left;font-size:12px;color:var(--muted)}
+.tsbname{font-size:22px;font-weight:700;color:var(--gold);margin:12px 0 6px}
+.tsbbtn{--p:0%;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:230px;height:230px;margin:6px auto 10px;border:0;border-radius:50%;color:#fff;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;background:radial-gradient(circle at 50% 40%,var(--navy2),var(--navy));box-shadow:0 0 0 8px var(--head),0 6px 18px rgba(0,0,0,.18)}
+.tsbbtn:before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(var(--gold) var(--p),transparent 0);-webkit-mask:radial-gradient(circle,transparent 62%,#000 63%);mask:radial-gradient(circle,transparent 62%,#000 63%)}
+.tsbbtn:active{transform:scale(.97)}
+.tsbbtn span{font-size:68px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:var(--gold-soft)}
+.tsbbtn small{color:#cfe3de;font-size:14px;margin-top:6px}

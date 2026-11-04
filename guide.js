@@ -49,6 +49,48 @@ var Guide = (function () {
     });
     h += '<p class="note">Counts follow the common (Hanafi) practice and may differ slightly by school. On Friday the Jumu\'ah prayer (2 fard rakats with the khutbah) replaces the Dhuhr fard.</p>';
     $('p-guide-rakats').innerHTML = h;
+    initTasbih();
+  }
+
+  /* digital tasbih */
+  var DHIKR = [['SubhanAllah', 33], ['Alhamdulillah', 33], ['Allahu Akbar', 34], ['La ilaha illallah', 100], ['Astaghfirullah', 100], ['Free count (no target)', 0]];
+  function tsb() {
+    if (!S.tasbih) { S.tasbih = {mode: 0, n: 0, rounds: 0}; }
+    return S.tasbih;
+  }
+  function initTasbih() {
+    var opts = DHIKR.map(function (d, i) { return '<option value="' + i + '">' + d[0] + (d[1] ? ' (' + d[1] + ')' : '') + '</option>'; }).join('');
+    $('p-guide-tasbih').innerHTML =
+      '<div class="card center tsb">' +
+      '<label class="tsbsel">Dhikr <select id="tsbMode">' + opts + '</select></label>' +
+      '<div class="tsbname" id="tsbName"></div>' +
+      '<button class="tsbbtn" id="tsbTap" aria-label="Count"><span id="tsbN">0</span><small id="tsbOf"></small></button>' +
+      '<div class="note" id="tsbRounds"></div>' +
+      '<button class="btn" id="tsbReset">Reset</button>' +
+      '</div>' +
+      '<p class="note">Tap the big circle for each dhikr. The phone buzzes when a round is complete. Your count is saved on this phone.</p>';
+    $('tsbMode').value = tsb().mode;
+    $('tsbMode').onchange = function () { tsb().mode = +this.value; tsb().n = 0; tsb().rounds = 0; save(); drawTasbih(); };
+    $('tsbTap').onclick = tapTasbih;
+    $('tsbReset').onclick = function () { var b = this; tapConfirm(b, 'Tap again to reset', function () { tsb().n = 0; tsb().rounds = 0; save(); drawTasbih(); }); };
+    drawTasbih();
+  }
+  function buzz(p) { try { if (navigator.vibrate) { navigator.vibrate(p); } } catch (e) {} }
+  function tapTasbih() {
+    var t = tsb(), target = DHIKR[t.mode][1];
+    if (target && t.n >= target) { t.n = 0; }
+    t.n++;
+    if (target && t.n === target) { t.rounds++; buzz([70, 50, 70]); toast('Round complete'); } else { buzz(12); }
+    save(); drawTasbih();
+  }
+  function drawTasbih() {
+    var t = tsb(), d = DHIKR[t.mode] || DHIKR[0], target = d[1];
+    $('tsbName').textContent = d[0];
+    $('tsbN').textContent = t.n;
+    $('tsbOf').textContent = target ? 'of ' + target : 'taps';
+    var pct = target ? Math.min(100, Math.round(t.n * 100 / target)) : 0;
+    $('tsbTap').style.setProperty('--p', pct + '%');
+    $('tsbRounds').textContent = target ? ('Rounds completed: ' + t.rounds) : 'Free count';
   }
   return {init: init};
 })();

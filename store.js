@@ -1,5 +1,5 @@
 /* Namaz - data kept on the phone (localStorage), shared helpers */
-var APP_VER = 17;   // bump together with VERSION in sw.js when you change files
+var APP_VER = 18;   // bump together with VERSION in sw.js when you change files
 
 var DEFAULT_CITIES = [
   {id: 1, name: 'Bangkok', lat: 13.7563, lng: 100.5018, tz: 'Asia/Bangkok'},

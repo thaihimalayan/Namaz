@@ -1,5 +1,5 @@
 /* Namaz - service worker: keeps the app working offline (needs an https address). Bump VERSION (and APP_VER in store.js) with every change. */
-var VERSION = 17;
+var VERSION = 18;
 var CACHE = 'namaz-v' + VERSION;
 var FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png',
   'app.css', 'store.js', 'prayer.js', 'online.js', 'times.js', 'tracker.js',
