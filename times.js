@@ -27,7 +27,7 @@ var Times = (function () {
     var greg = new Intl.DateTimeFormat('en-GB', {timeZone: c.tz, weekday: 'short', day: 'numeric', month: 'short'}).format(now);
     var hij = '';
     try { hij = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {timeZone: c.tz, day: 'numeric', month: 'short', year: 'numeric'}).format(now); } catch (e) {}
-    $('topDate').innerHTML = esc(greg) + (hij ? ' &nbsp;|&nbsp; ' + esc(hij) : '');
+    $('topDate').innerHTML = esc(greg) + (hij ? ' \u2009|\u2009 ' + esc(hij) : '');
     var t = PR.timesFor(now, c, S.settings);
     var tomorrow = PR.timesFor(new Date(now.getTime() + 86400000), c, S.settings);
     var friday = new Intl.DateTimeFormat('en-US', {timeZone: c.tz, weekday: 'long'}).format(now) === 'Friday';
