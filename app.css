@@ -160,3 +160,7 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 .dua.today .arb,.dua.today .tr{color:#fff}
 .dua.today .src{color:#cfe3de}
 .dua.today .ttl{color:var(--gold-soft)}
+.duaq{display:block;width:100%;margin:0 0 12px;padding:12px 12px;border:1px solid var(--line);border-radius:12px;background:var(--inbg);color:var(--ink);font:16px var(--font);-webkit-appearance:none;appearance:none}
+.duaq:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-tint)}
+.dua .trl{font-style:italic;font-size:14px;color:var(--gold);margin:2px 0 4px;line-height:1.4}
+.dua.today .trl{color:var(--gold-soft)}
