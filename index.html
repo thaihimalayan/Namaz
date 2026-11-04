@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Namaz">
+<meta name="theme-color" content="#14403c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Namaz</title>
+<link rel="stylesheet" href="assets/css/app.css?v=14">
+</head><body>
+
+<header class="top"><b id="topTitle">Prayer Times</b><span id="topDate" class="topdate"></span></header>
+
+<main>
+  <!-- TIMES -->
+  <section class="view" id="v-times">
+    <div class="ctabs"></div>
+    <div class="seg" data-view="times"><button data-p="today" class="on">Today</button><button data-p="month">Month</button></div>
+    <div class="sub on" id="p-times-today">
+      <div class="card next">
+        <small>Next prayer</small>
+        <div class="nname" id="nextName">--</div>
+        <div class="ncount" id="countdown">--:--:--</div>
+        <div class="nat" id="nextAt"></div>
+      </div>
+      <div class="card"><table class="t times" id="timesTbl"></table></div>
+      <div class="card form">
+        <label>Asr <select id="tAsr"><option value="1">Shafi / Maliki / Hanbali</option><option value="2">Hanafi</option></select></label>
+      </div>
+      <p class="note">Times are calculated on your phone. Check with your local mosque for exact timings.</p>
+    </div>
+    <div class="sub" id="p-times-month">
+      <div class="mnav"><button class="btn" id="tmPrev">&lsaquo;</button><b id="tmTitle"></b><button class="btn" id="tmNext">&rsaquo;</button></div>
+      <div class="card"><table class="t month" id="tmTbl"></table></div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section class="view" id="v-tracker">
+    <div class="seg" data-view="tracker"><button data-p="today" class="on">Today</button><button data-p="month">Month</button></div>
+    <div class="sub on" id="p-tracker-today">
+      <div class="card">
+        <div class="row-between"><b>Today's prayers</b><span id="kCount">0/5</span></div>
+        <div class="prog"><i id="kBar"></i></div>
+        <div id="kList"></div>
+      </div>
+      <div class="card">
+        <b>Last 7 days</b>
+        <div class="week" id="week"></div>
+        <p class="note" id="streak"></p>
+        <p class="note" id="totals"></p>
+      </div>
+    </div>
+    <div class="sub" id="p-tracker-month">
+      <div class="mnav"><button class="btn" id="kmPrev">&lsaquo;</button><b id="kmTitle"></b><button class="btn" id="kmNext">&rsaquo;</button></div>
+      <div class="card"><table class="t month" id="kmTbl"></table></div>
+      <p class="note">Tap a circle to mark a prayer as done, also for past days.</p>
+    </div>
+  </section>
+
+  <!-- QIBLA -->
+  <section class="view" id="v-qibla">
+    <div class="ctabs"></div>
+    <div class="card center">
+      <div class="big" id="qDeg">--&deg;</div>
+      <div class="note" id="qCity"></div>
+      <div class="compass"><div class="cn">N</div><div class="needle" id="needle"></div></div>
+      <button class="btn pri" id="compassBtn">Enable live compass</button>
+      <p class="note" id="qHint">Tap the button, then hold your phone flat. The Kaaba symbol points towards Mecca.</p>
+    </div>
+  </section>
+
+  <!-- GUIDE -->
+  <section class="view" id="v-guide">
+    <div class="seg" data-view="guide"><button data-p="steps" class="on">How to pray</button><button data-p="wudu">Wudu</button><button data-p="rakats">Rakats</button></div>
+    <div class="sub on" id="p-guide-steps"></div>
+    <div class="sub" id="p-guide-wudu"></div>
+    <div class="sub" id="p-guide-rakats"></div>
+  </section>
+
+  <!-- MORE -->
+  <section class="view" id="v-more">
+    <div class="seg" data-view="more"><button data-p="general" class="on">General</button><button data-p="backup">Backup</button></div>
+    <div class="sub on" id="p-more-general">
+      <div class="card form">
+        <div class="ctabs"></div>
+        <label>Calculation method <select id="gMethod"></select></label>
+        <label>Asr <select id="gAsr"><option value="1">Shafi / Maliki / Hanbali</option><option value="2">Hanafi</option></select></label>
+        <label>Clock <select id="gH24"><option value="1">24-hour</option><option value="0">12-hour (am/pm)</option></select></label>
+        <label>Appearance <select id="gDark"><option value="auto">Automatic</option><option value="0">Light</option><option value="1">Dark</option></select></label>
+        <h3>Current location (if GPS is blocked)</h3>
+        <div class="adjgrid" style="grid-template-columns:1fr 1fr"><label>Latitude <input id="gLat" inputmode="decimal"></label><label>Longitude <input id="gLng" inputmode="decimal"></label></div>
+        <h3>Adjust times (minutes, + later / - earlier)</h3>
+        <div class="adjgrid" id="adjGrid"></div>
+        <button class="btn pri" id="gSave">Save</button>
+        <button class="btn pri" id="gPreset" style="background:var(--card);color:var(--ink);border-color:var(--line)">Match Muslim Pro (Bangkok)</button>
+        <p class="note">Sets Bangkok, Karachi method, Shafi Asr and small minute adjustments so times match Muslim Pro. Times then update by themselves every day.</p>
+      </div>
+    </div>
+    <div class="sub" id="p-more-backup">
+      <div class="card form">
+        <h3>Back up</h3>
+        <p class="note">Saves your settings, cities and prayer history. The text is copied so you can paste it into Notes, or it is offered as a file.</p>
+        <button class="btn pri" id="bkExport">Save backup</button>
+        <textarea id="bkText" placeholder="Backup text appears here. To restore, paste it here." spellcheck="false"></textarea>
+        <h3 style="margin-top:22px">Restore</h3>
+        <p class="note">Paste the backup text above, or choose a backup file. This replaces everything in the app.</p>
+        <input type="file" id="bkFile" accept=".json,application/json">
+        <button class="btn pri" id="bkRestore">Restore from file</button>
+        <h3 style="margin-top:22px">Update</h3>
+        <p class="note" id="verLbl"></p>
+        <button class="btn" id="updBtn">Check for update</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="bar" id="bar">
+  <button data-v="times" class="on"><i>&#128338;</i>Times</button>
+  <button data-v="tracker"><i>&#9989;</i>Tracker</button>
+  <button data-v="qibla"><i>&#129517;</i>Qibla</button>
+  <button data-v="guide"><i>&#128214;</i>Guide</button>
+  <button data-v="more"><i>&#9776;</i>More</button>
+</nav>
+<div id="toast" class="toast"></div>
+
+<script src="assets/js/store.js?v=14"></script>
+<script src="assets/js/prayer.js?v=14"></script>
+<script src="assets/js/times.js?v=14"></script>
+<script src="assets/js/tracker.js?v=14"></script>
+<script src="assets/js/qibla.js?v=14"></script>
+<script src="assets/js/guide.js?v=14"></script>
+<script src="assets/js/more.js?v=14"></script>
+<script src="assets/js/app.js?v=14"></script>
+</body></html>
