@@ -138,3 +138,5 @@ function tapConfirm(btn, label, action) {
     if (btn.getAttribute('data-armed')) { btn.removeAttribute('data-armed'); btn.classList.remove('armed'); btn.textContent = btn.getAttribute('data-label'); }
   }, 4000);
 }
+
+
