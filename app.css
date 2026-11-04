@@ -206,3 +206,5 @@ textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid v
 .updbtn{display:block;width:100%;padding:26px 10px;border:0;border-radius:18px;background:var(--navy);color:var(--gold-soft);font:700 22px var(--font);cursor:pointer;box-shadow:var(--shadow)}
 .updbtn:active{transform:scale(.98)}
 .sr{scroll-margin-top:150px}
+.srh3{margin:16px 2px 8px}
+.srh3:first-child{margin-top:4px}
