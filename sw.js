@@ -1,9 +1,9 @@
-/* Namaz - service worker: keeps the app working offline (needs an https address). Bump VERSION (and APP_VER in assets/js/store.js) with every change. */
+/* Namaz - service worker: keeps the app working offline (needs an https address). Bump VERSION (and APP_VER in store.js) with every change. */
 var VERSION = 14;
 var CACHE = 'namaz-v' + VERSION;
 var FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png',
-  'assets/css/app.css', 'assets/js/store.js', 'assets/js/prayer.js', 'assets/js/times.js', 'assets/js/tracker.js',
-  'assets/js/qibla.js', 'assets/js/guide.js', 'assets/js/more.js', 'assets/js/app.js'];
+  'app.css', 'store.js', 'prayer.js', 'times.js', 'tracker.js',
+  'qibla.js', 'guide.js', 'more.js', 'app.js'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {

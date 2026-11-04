@@ -89,7 +89,7 @@ var More = (function () {
   /* ----- update ----- */
   function checkUpdate() {
     toast('Checking...');
-    fetch('assets/js/store.js?t=' + Date.now(), {cache: 'no-store'}).then(function (r) { return r.text(); }).then(function (t) {
+    fetch('store.js?t=' + Date.now(), {cache: 'no-store'}).then(function (r) { return r.text(); }).then(function (t) {
       var m = /var APP_VER = (\d+)/.exec(t), v = m ? +m[1] : 0;
       if (v > APP_VER) {
         toast('Updating to version ' + v + '...');
