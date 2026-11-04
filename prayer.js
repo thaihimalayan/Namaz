@@ -39,6 +39,10 @@ var PR = (function () {
 
   // prayer times for local date y-m-d at a city. Returns {Fajr,Sunrise,Dhuhr,Asr,Maghrib,Isha} as Date (or null when the sun never gets there)
   function compute(y, m, d, city, st) {
+    if (window.Online && (city.id === 1 || city.id === 2)) {   // live masjid times (Aladhan method 18) when downloaded
+      var live = Online.get(city.id, y, m, d);
+      if (live) { return live; }
+    }
     var meth = METHODS[st.method] || METHODS.mwl;
     var asrF = +st.asr === 2 ? 2 : 1;
     var lat = city.lat, lng = city.lng;
@@ -56,7 +60,7 @@ var PR = (function () {
     var t = {
       Fajr: noon - T(meth.f),
       Sunrise: noon - sunT,
-      Dhuhr: noon + 2 / 60,   // 2 minutes after the sun passes its highest point
+      Dhuhr: noon + (st.dm === undefined ? 2 : +st.dm) / 60,   // minutes after the sun passes its highest point
       Asr: noon + asrT,
       Maghrib: mag,
       Isha: meth.i > 0 ? noon + T(meth.i) : mag + meth.im / 60

@@ -23,6 +23,7 @@ function showSub(view, p) {
 (function () {
   loadState();
   applyDark();
+  try { Online.init(); } catch (e) {}
   [Times, Tracker, Qibla, Guide, More].forEach(function (m) {
     try { m.init(); } catch (e) { toast('Error: ' + e.message); }
   });

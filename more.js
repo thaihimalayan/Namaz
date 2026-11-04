@@ -24,8 +24,8 @@ var More = (function () {
     $('gPreset').onclick = function () {
       S.settings.city_id = 1;
       S.settings.method = 'karachi'; S.settings.asr = 1;
-      S.settings.adj = {Fajr: -4, Sunrise: 0, Dhuhr: 1, Asr: 0, Maghrib: 1, Isha: 1};
-      settingsChanged(); toast('Matched to Muslim Pro (Bangkok)');
+      S.settings.adj = {Fajr: 0, Sunrise: 0, Dhuhr: 0, Asr: 0, Maghrib: 0, Isha: 0}; S.settings.dm = 0;
+      settingsChanged(); toast('Reset to masjid settings (offline backup)');
     };
     $('bkExport').onclick = exportBackup;
     $('bkRestore').onclick = restoreBackup;
